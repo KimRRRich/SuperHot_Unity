@@ -1,29 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;//³¡¾°
 
-
-public class quitGame : MonoBehaviour
+public class FPSControl : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        
+        Application.targetFrameRate = 90;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
-    public void StartGame()
-    {
-        //SceneManager.
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 }
