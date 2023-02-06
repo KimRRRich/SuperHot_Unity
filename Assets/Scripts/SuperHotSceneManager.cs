@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneManager : MonoBehaviour {
+public class SuperHotSceneManager : MonoBehaviour {
 
     public float sceneSpeed;
     private PlayerController player;
