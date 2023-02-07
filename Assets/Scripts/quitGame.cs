@@ -26,4 +26,18 @@ public class quitGame : MonoBehaviour
     {
         SceneManager.LoadScene("Scene");
     }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("menu");
+    }
+    public void BackToDeskTop()
+    {
+        Application.Quit();
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("Scene");
+    }
 }

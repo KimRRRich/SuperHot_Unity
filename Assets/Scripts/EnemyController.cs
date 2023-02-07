@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour {
     }
     public Type type;
     public float moveSpeed;
-    public int TrackDis = 50;
+    public int TrackDis = 200;
     public int ShootDis = 20;
     private CharacterController cc;
     private Vector3 moveDirection;
@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour {
     private bool CanMove=true;
     public GameObject Bullet;
     public GameObject Gun;
+    public bool GameOver = false;
     
 
     // Use this for initialization
@@ -35,23 +36,37 @@ public class EnemyController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        moveDirection = (player.transform.position - this.transform.position).normalized;
-        moveDistance = (player.transform.position - this.transform.position).magnitude;
-        if (CanMove)
+        if (!GameOver)
         {
-            if (moveDistance < TrackDis && moveDistance > ShootDis)
+            moveDirection = (player.transform.position - this.transform.position).normalized;
+            moveDistance = (player.transform.position - this.transform.position).magnitude;
+            if (CanMove)
             {
-                Vector3 pos = player.transform.position;
-                pos.y = transform.position.y;
-                transform.LookAt(pos);
-                moveVector = new Vector3(moveDirection.x * Time.deltaTime * moveSpeed, 0, moveDirection.z * Time.deltaTime * moveSpeed);
-                cc.Move(moveVector);
-            }
-            else if (moveDistance < ShootDis)
-            {
-                animator.SetTrigger("Shoot");
+                if (moveDistance < TrackDis && moveDistance > ShootDis)
+                {
+                    Vector3 pos = player.transform.position;
+                    pos.y = transform.position.y;
+                    transform.LookAt(pos);
+                    moveVector = new Vector3(moveDirection.x * Time.deltaTime * moveSpeed, 0, moveDirection.z * Time.deltaTime * moveSpeed);
+                    cc.Move(moveVector);
+                    animator.SetBool("Run", true);
+                }
+                else if (moveDistance < ShootDis)
+                {
+                    this.transform.LookAt(new Vector3(player.transform.position.x,this.transform.position.y,player.transform.position.z));
+                    animator.SetTrigger("Shoot");
+                }
+                else if (moveDistance > TrackDis)
+                {
+                    animator.SetBool("Run", false);
+                }
             }
         }
+        else
+        {
+            animator.SetBool("Run", false);
+        }
+       
         
     }
 

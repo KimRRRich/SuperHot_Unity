@@ -8,14 +8,16 @@ public class FPSControl : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 90;
+        Cursor.visible = true;//鼠标显示
+        Cursor.lockState = CursorLockMode.None;//鼠标解锁并显示
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    Application.Quit();
+        //}
     }
 }

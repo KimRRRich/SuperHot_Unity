@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-namespace UnityStandardAssets.Characters.FirstPerson
-{
+//namespace UnityStandardAssets.Characters.FirstPerson
+//{
     [Serializable]
     public class MouseLook
     {
@@ -15,6 +15,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public bool smooth;
         public float smoothTime = 5f;
         public bool lockCursor = true;
+        public bool isGameOver = false;
 
 
         private Quaternion m_CharacterTargetRot;
@@ -26,7 +27,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_CharacterTargetRot = character.localRotation;
             m_CameraTargetRot = camera.localRotation;
         }
-
+        
+       
 
         public void LookRotation(Transform character, Transform camera)
         {
@@ -82,12 +84,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_cursorIsLocked = true;
             }
-
+        if (!isGameOver)
+        {
             if (m_cursorIsLocked)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+        }
+            
             else if (!m_cursorIsLocked)
             {
                 Cursor.lockState = CursorLockMode.None;
@@ -112,4 +117,4 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
     }
-}
+//}

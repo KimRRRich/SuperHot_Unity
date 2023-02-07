@@ -15,6 +15,9 @@ namespace Digital.Weapons
         public float speed = 8.0f;
         public GameObject player;
         private Vector3 moveDirection;
+        public GameObject Canvas;
+        private bool BulletGameOver;
+        //public GameObject menu;
 
         [HideInInspector] public Vector3 direction=new Vector3(0,0,1);
 
@@ -24,6 +27,9 @@ namespace Digital.Weapons
             moveDirection = (player.transform.position - this.transform.position).normalized;
             moveDirection.y = 0;
             Destroy(gameObject,6);
+            //Canvas = GameObject.Find("Canvas");
+            BulletGameOver = false;
+            //menu=GameObject.Fin
             //rb = GetComponent<Rigidbody>();
 
             //rb.AddForce(moveDirection * Time.fixedUnscaledDeltaTime * 100, ForceMode.Force);
@@ -33,21 +39,29 @@ namespace Digital.Weapons
         {
             //Debug.Log("BulletUpdate");
             transform.Translate(moveDirection * Time.deltaTime * speed);
+           
         }
 
         public void OnTriggerEnter(Collider other)
         {
-            Debug.Log("OnCollisionEnter!");
             //Debug.Log("OnCollisionEnter!");
-            if (other.GetComponent<Collider>().CompareTag("Player"))
+            //Debug.Log("OnCollisionEnter!");
+            if (!BulletGameOver)
             {
-                Debug.Log("Player get shooted!");
+                if (other.GetComponent<Collider>().CompareTag("Player"))
+                {
+                    Debug.Log("Player get shooted!");
+                    player.GetComponent<PlayerController>().GameOver();
+                }
+                else if (other.GetComponent<Collider>().CompareTag("Wall"))
+                {
+                    Destroy(gameObject);
+                    Debug.Log("Wall get shooted!");
+                }
             }
-            else if (other.GetComponent<Collider>().CompareTag("Wall"))
-            {
-                Destroy(gameObject);
-                Debug.Log("Wall get shooted!");
-            }
+            
         }
+
+      
     }
 }

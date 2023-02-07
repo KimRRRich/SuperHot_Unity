@@ -19,9 +19,9 @@ public class SuperHotSceneManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if(Input.GetKey("escape")) {
-            Application.Quit();
-        }
+        //if(Input.GetKey("escape")) {
+        //    Application.Quit();
+        //}
         sceneSpeed = (player.Speed() / MAX_SPEED_SCALE) + MIN_SCENE_SPEED;
         Time.timeScale = sceneSpeed;
         Time.maximumDeltaTime = sceneSpeed;
