@@ -12,7 +12,7 @@ namespace Digital.Weapons
 
         [SerializeField] private float force;
         private Rigidbody rb;
-        public float speed = 8.0f;
+        private float speed = 10.0f;
         public GameObject player;
         private Vector3 moveDirection;
         public GameObject Canvas;
@@ -27,12 +27,8 @@ namespace Digital.Weapons
             moveDirection = (player.transform.position - this.transform.position).normalized;
             moveDirection.y = 0;
             Destroy(gameObject,6);
-            //Canvas = GameObject.Find("Canvas");
             BulletGameOver = false;
-            //menu=GameObject.Fin
-            //rb = GetComponent<Rigidbody>();
-
-            //rb.AddForce(moveDirection * Time.fixedUnscaledDeltaTime * 100, ForceMode.Force);
+           
         }
 
         private void Update()
@@ -50,13 +46,13 @@ namespace Digital.Weapons
             {
                 if (other.GetComponent<Collider>().CompareTag("Player"))
                 {
-                    Debug.Log("Player get shooted!");
+                    //Debug.Log("Player get shooted!");
                     player.GetComponent<PlayerController>().GameOver();
                 }
                 else if (other.GetComponent<Collider>().CompareTag("Wall"))
                 {
                     Destroy(gameObject);
-                    Debug.Log("Wall get shooted!");
+                    //Debug.Log("Wall get shooted!");
                 }
             }
             

@@ -12,6 +12,8 @@ public class UpdateTime : MonoBehaviour
     GameObject CountingTime;
     public bool GameOver;
     public GameObject menu;
+    private GameObject player;
+    public GameObject aim;
     void Start()
     {
         CountingTime = GameObject.Find("Êý×Ö");
@@ -19,6 +21,8 @@ public class UpdateTime : MonoBehaviour
         TimeV = float.Parse(TimeValue);
         GameOver = false;
         menu.SetActive(false);
+        player = GameObject.Find("Player");
+        aim.SetActive(true);
     }
 
     // Update is called once per frame
@@ -34,6 +38,10 @@ public class UpdateTime : MonoBehaviour
 
 
             }
+            else if(TimeV<0)
+            {
+                player.GetComponent<PlayerController>().GameOver();
+            }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 SceneManager.LoadScene("menu");
@@ -47,5 +55,6 @@ public class UpdateTime : MonoBehaviour
     public void ShowMenu()
     {
         menu.SetActive(true);
+        aim.SetActive(false);
     }
 }

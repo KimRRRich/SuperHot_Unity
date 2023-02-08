@@ -10,8 +10,8 @@ public class EnemyController : MonoBehaviour {
     }
     public Type type;
     public float moveSpeed;
-    public int TrackDis = 200;
-    public int ShootDis = 20;
+    private int TrackDis = 4000;
+    public int ShootDis = 30;
     private CharacterController cc;
     private Vector3 moveDirection;
     private float moveDistance;
@@ -22,6 +22,8 @@ public class EnemyController : MonoBehaviour {
     public GameObject Bullet;
     public GameObject Gun;
     public bool GameOver = false;
+    private bool isDead;
+    private AudioSource AudioSource;
     
 
     // Use this for initialization
@@ -29,9 +31,11 @@ public class EnemyController : MonoBehaviour {
         player = GameObject.Find("Player");
         //Bullet = GameObject.Find("Bullet");
         cc = GetComponent<CharacterController>();
+        AudioSource = GetComponent<AudioSource>();
         moveDirection = Vector3.zero;
         moveSpeed = 4.0f;
         animator = GetComponent<Animator>();
+        isDead = false;
     }
 
     // Update is called once per frame
@@ -73,17 +77,30 @@ public class EnemyController : MonoBehaviour {
     void CreateBullet()
     {
         Instantiate(Bullet,Gun.transform.position,new Quaternion(0,0,0,0));
-        Debug.Log("CreateBullet");
+        //Debug.Log("CreateBullet");
     }
     void StartMove()
     {
         CanMove = true;
-        Debug.Log("StartMove");
+        //Debug.Log("StartMove");
     }
 
     void StopMove()
     {
         CanMove = false;
-        Debug.Log("StopMove");
+        //Debug.Log("StopMove");
+    }
+
+    public void GetShoot()
+    {
+        if (!isDead)
+        {
+            animator.SetTrigger("death1");
+            AudioSource.Play();
+            CanMove = false;
+            Destroy(gameObject, 3);
+            isDead = true;
+        }
+        
     }
 }
