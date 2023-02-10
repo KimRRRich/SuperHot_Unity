@@ -46,7 +46,7 @@ namespace Digital.Weapons
             {
                 if (other.GetComponent<Collider>().CompareTag("Player"))
                 {
-                    //Debug.Log("Player get shooted!");
+                    Debug.Log("Player get shooted!");
                     player.GetComponent<PlayerController>().GameOver();
                 }
                 else if (other.GetComponent<Collider>().CompareTag("Wall"))

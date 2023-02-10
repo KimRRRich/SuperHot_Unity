@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
     private AudioSource[] m_ArrayMusic;
     private AudioSource m_music1;
     private AudioSource m_music2;
+    public int level=1;
 
     // Use this for initialization
     void Start () {
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour {
         m_music1 = m_ArrayMusic[0];
         //m_music1 = m_ArrayMusic[0];
         m_music2 = m_ArrayMusic[1];
+        //level = 1;
 
     }
 
@@ -53,19 +55,52 @@ public class PlayerController : MonoBehaviour {
         if (!isGameOver)
         {
             //player
-            m_music2.Play();
-            Canvas.GetComponent<UpdateTime>().GameOver = true;
-            player.GetComponent<FirstPersonController>().GameOver = true;
-            EnemyCreatePoint.GetComponent<CreateEnemy>().GameOver = true;
-            Canvas.GetComponent<UpdateTime>().ShowMenu();
-            player.GetComponent<FirstPersonController>().UnlockedMouse();
+            if (level == 1)
+            {
+                m_music2.Play();
+                Canvas.GetComponent<UpdateTime>().GameOver = true;
+                player.GetComponent<FirstPersonController>().GameOver = true;
+                EnemyCreatePoint.GetComponent<CreateEnemy>().GameOver = true;
+                Canvas.GetComponent<UpdateTime>().ShowMenu();
+                player.GetComponent<FirstPersonController>().UnlockedMouse();
 
-            Cursor.visible = true;//鼠标显示
-            Cursor.lockState = CursorLockMode.None;//鼠标解锁并显示
-            isGameOver = true;
+                Cursor.visible = true;//鼠标显示
+                Cursor.lockState = CursorLockMode.None;//鼠标解锁并显示
+                isGameOver = true;
+            }
+            if(level == 2)
+            {
+                m_music2.Play();
+                Canvas.GetComponent<LevelUpdateTime>().GameOver = true;
+                player.GetComponent<FirstPersonController>().GameOver = true;
+                Canvas.GetComponent<LevelUpdateTime>().ShowMenu();
+                player.GetComponent<FirstPersonController>().UnlockedMouse();
+                Cursor.visible = true;//鼠标显示
+                Cursor.lockState = CursorLockMode.None;//鼠标解锁并显示
+                
+            }
+            
         }
         
 
+
+    }
+
+
+    public void OnTriggerEnter(Collider other)
+    {
+       
+      
+            if (other.GetComponent<Collider>().CompareTag("door"))
+            {
+                Canvas.GetComponent<LevelUpdateTime>().GameOver = true;
+                player.GetComponent<FirstPersonController>().GameOver = true;
+                Canvas.GetComponent<LevelUpdateTime>().ShowMenu();
+                player.GetComponent<FirstPersonController>().UnlockedMouse();
+                Cursor.visible = true;//鼠标显示
+                Cursor.lockState = CursorLockMode.None;//鼠标解锁并显示
+            }
+            
 
     }
 }

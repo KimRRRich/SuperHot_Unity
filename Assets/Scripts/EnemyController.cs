@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour {
     }
     public Type type;
     public float moveSpeed;
-    private int TrackDis = 4000;
+    public int TrackDis = 4000;
     public int ShootDis = 30;
     private CharacterController cc;
     private Vector3 moveDirection;
@@ -36,6 +36,8 @@ public class EnemyController : MonoBehaviour {
         moveSpeed = 4.0f;
         animator = GetComponent<Animator>();
         isDead = false;
+        GameOver = false;
+        CanMove = true;
     }
 
     // Update is called once per frame
@@ -48,12 +50,13 @@ public class EnemyController : MonoBehaviour {
             {
                 if (moveDistance < TrackDis && moveDistance > ShootDis)
                 {
+                    animator.SetBool("Run", true);
                     Vector3 pos = player.transform.position;
                     pos.y = transform.position.y;
                     transform.LookAt(pos);
                     moveVector = new Vector3(moveDirection.x * Time.deltaTime * moveSpeed, 0, moveDirection.z * Time.deltaTime * moveSpeed);
                     cc.Move(moveVector);
-                    animator.SetBool("Run", true);
+                    
                 }
                 else if (moveDistance < ShootDis)
                 {
